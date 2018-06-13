@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        
+            <ul class="list-inline topic-filter">
+        
+                <li class="popover-with-html" data-content="发布时间排序" data-original-title="" title="">
+                    <a href="" class="active">最近</a>
+                </li>
+            </ul>
+        
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="jscroll">
+            <div class="jscroll-inner">
+                <div class="panel-body remove-padding-horizontal">
+                    <ul class="list-group row topic-list">
+                        {% for post in posts %}
+                        <li class="list-group-item ">
+                            <a class="reply_count_area hidden-xs pull-right" href="">
+                                <div class="count_set">
+                                    <!-- <span class="count_of_votes" title="投票数">
+                                            19
+                                        </span> -->
+        
+                                    <!-- <span class="count_seperator">/</span> -->
+        
+                                    <!-- <span class="count_of_replies" title="回复数">
+                                            10
+                                        </span>
+                        
+                                        <span class="count_seperator">/</span>
+                        
+                                        <span class="count_of_visits" title="查看数">
+                                            189
+                                        </span>
+                                        <span class="count_seperator">|</span> -->
+        
+                                    <abbr title="{{post.updatedAt|date}}" class="timeago">{{post.updatedAt|date('{y}-{m}-{d}')}}</abbr>
+                                </div>
+                            </a>
+                            <!-- <div class="avatar pull-left">
+                                <a href="https://laravel-china.org/users/1" title="Summer">
+                                    <img class="media-object img-thumbnail avatar avatar-middle" alt="Summer" src="https://lccdn.phphub.org/uploads/avatars/1_1479342408.png?imageView2/1/w/100/h/100">
+                                </a>
+                            </div> -->
+        
+        
+                            <div class="infos">
+        
+                                <div class="media-heading">
+        
+                                    <!-- <span class="hidden-xs label label-warning">置顶</span> -->
+        
+                                    <a href="{{link+post.uuid}}"
+                                        title="{{post.title}}">
+                                        {{post.title}}   
+                                    </a>
+        
+        
+                                </div>
+        
+                            </div>
+        
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+        
+                <div class="panel-footer text-right remove-padding-horizontal pager-footer" style="display: none;">
+                    <!-- Pager -->
+                    <ul class="pagination">
+        
+                        <li class="disabled">
+                            <span>«</span>
+                        </li>
+        
+        
+        
+        
+        
+                        <li class="active">
+                            <span>1</span>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=2">2</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=3">3</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=4">4</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=5">5</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=6">6</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=7">7</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=8">8</a>
+                        </li>
+        
+                        <li class="disabled">
+                            <span>...</span>
+                        </li>
+        
+        
+        
+        
+        
+                        <li>
+                            <a href="https://laravel-china.org?page=19">19</a>
+                        </li>
+                        <li>
+                            <a href="https://laravel-china.org?page=20">20</a>
+                        </li>
+        
+        
+                        <li>
+                            <a href="https://laravel-china.org?page=2" rel="next">»</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

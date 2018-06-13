@@ -1,0 +1,48 @@
+{
+  "name": "koa2_site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node bin/www",
+    "dev": "./node_modules/.bin/nodemon bin/www",
+    "prd": "pm2 start bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "debug": "^2.6.3",
+    "hashids": "^1.1.4",
+    "jsonwebtoken": "^8.2.0",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^2.0.1",
+    "koa-onerror": "^1.2.1",
+    "koa-router": "^7.1.1",
+    "koa-static": "^3.0.0",
+    "koa-view": "^2.1.1",
+    "koa-views": "^5.2.1",
+    "mysql2": "^1.5.2",
+    "node-uuid": "^1.4.8",
+    "nunjucks": "^3.1.2",
+    "redis": "^2.8.0",
+    "sequelize": "^4.35.1",
+    "showdown": "^1.8.6"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.5.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-ext-replace": "^0.3.0",
+    "gulp-header": "^2.0.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "koa2-cors": "^2.0.5",
+    "nodemon": "^1.8.1"
+  }
+}
