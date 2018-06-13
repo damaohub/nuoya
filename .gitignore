@@ -13,5 +13,5 @@ package-lock.json
 *.njsproj
 *.sln
 
-assets
-public/*/*
+/assets
+/public/*/*
