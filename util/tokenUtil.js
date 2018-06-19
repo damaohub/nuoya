@@ -57,16 +57,15 @@ JwtSession.prototype.prverifySession =  async(token) => {
  * @param {*} param 传给cb的参数，默认null,此时,cb参数是解析后的token
  * @param {*} isWith param是否携带解析后的token一起作为cb的参数
  */
-JwtSession.prototype.callWithToken = async (token, cb, param = null, isWith = false) => {
+JwtSession.prototype.callWithToken = async (token, cb, param = null, isWith = false,) => {
   let result = await JwtSession.prototype.prverifySession(token)
-  console.log(result)
   if ("code" in result) {//token不合法
     return result;
   } else {
     var arg
-    if (param == null) {
+    if(param == null){
       arg = result
-    } else {
+    }else {
       arg = isWith ? Object.assign(param, result) : param
     }
     let data = await cb(arg)//cb(arg)是服务层返回的promise,在这里需要获取数据。

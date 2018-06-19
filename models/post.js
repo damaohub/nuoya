@@ -5,7 +5,7 @@ function generateId() {
     return uuid.v4();
 }
 
-const post = db.defineModel('post', {
+const Post = db.defineModel('post', {
     uuid: {
         type: db.UUID,
         defaultValue: function () {
@@ -26,11 +26,23 @@ const post = db.defineModel('post', {
     content: {
         type: db.TEXT,
         field: "content"
-    },
-    tags: {
-        type: db.TEXT,
-        field: "tags"
-    }  
+    }
 });
 
-module.exports = post
+const Tag = db.defineModel('tag', {
+    name: {
+        type: db.STRING(128)
+    }
+})
+
+const PostTag = db.defineModel('post_tag', {
+    id: {
+        type: db.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      }
+})
+Tag.belongsToMany(Post, { through: 'post_tag'})
+Post.belongsToMany(Tag, { through: 'post_tag' })
+
+module.exports = {Post, Tag, PostTag}

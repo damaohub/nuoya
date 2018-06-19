@@ -1,5 +1,4 @@
 const router = require('koa-router')()
-var userController = require('../controllers/users')
 router.prefix('/users')
 
 router.get('/', function (ctx, next) {

@@ -48,6 +48,43 @@ CREATE TABLE `admin_role` (
 INSERT INTO `admin_role` VALUES ('1','1','1','1521351431001','1521351431001'), ('2','2','2','1521351431001','1521351431001');
 
 
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` int(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `uuid` varchar(255) UNIQUE KEY NOT NULL,
+  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `createdAt` bigint NOT NULL,
+  `updatedAt` bigint NOT NULL,
+  `author_id` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(11)  PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `frequency` int(11) DEFAULT '1',
+  `createdAt` bigint NOT NULL,
+  `updatedAt` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `tag` (`id`, `name`,`createdAt`, `updatedAt`) VALUES ('1','node.js',1521351431001, 1521351431001), ('2','php', 1521351431001, 1521351431001), ('3','vue' ,1521351431001, 1521351431001);
+
+CREATE TABLE `post_tag` (
+  `id` int(11)  PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `postId` int(11) NOT NULL,
+  `tagId` int(11) NOT NULL,
+  `createdAt` bigint NOT NULL,
+  `updatedAt` bigint NOT NULL,
+  KEY `fk_post_tag_t_tag_1` (`postId`),
+  KEY `fk_post_tag_t_post_1` (`tagId`),
+  CONSTRAINT `fk_post_tag_t_tag_1` FOREIGN KEY (`postId`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_post_tag_t_post_1` FOREIGN KEY (`tagId`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+INSERT INTO `post_tag` VALUES ('1','1','1','1521351431001','1521351431001'), ('2','2','2','1521351431001','1521351431001');
+INSERT INTO `post_tag` VALUES ('3','1','3','1521351431001','1521351431001'), ('4','2','1','1521351431001','1521351431001'),('5','1','2','1521351431001','1521351431001'),('6','3','1','1521351431001','1521351431001');
+
+
+
+
 
 
 
@@ -95,6 +132,14 @@ CREATE TABLE IF NOT EXISTS `post` (
   `updatedAt` bigint NOT NULL,
   `author_id` int(11) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(11)  PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `frequency` int(11) DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 
 CREATE TABLE IF NOT EXISTS `poststatus` (
  `id` int(11)  NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -158,12 +203,6 @@ ALTER TABLE `post`
    ADD KEY `FK_post_author` (`author_id`), ADD KEY `FK_post_status` (`status`);
 --
 -- Indexes for table `poststatus`
-
-
--- Indexes for table `tag`
---
-ALTER TABLE `tag`
-  ADD PRIMARY KEY (`id`);
 
 
 --

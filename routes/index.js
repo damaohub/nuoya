@@ -1,19 +1,24 @@
 const router = require('koa-router')()
-const userServicev= require('../service/users')
-const postService = require('../service/posts')
-
-router.get('/', async (ctx, next) => {
- let data = await postService.getPosts()
- let _link = await postService.getLink(ctx,'post/')
-  ctx.render('index.html', {
-    posts: data,
-    link: _link
+const userServicev= require('../services/users')
+const postService = require('../services/posts')
+const postControler = require('../controllers/posts')
+router.get('/', postControler.index)
+.get('/post/:id',async (ctx, next) => {
+  let data = await postService.getPost({ postID: ctx.params.id })
+  let _tags = await postService.getTagsBypost(ctx.params.id)
+ 
+  ctx.render('post.html', {
+    post: data,
+    tags: _tags
   })
 })
-.get('/post/:id',async (ctx, next) => {
-  let data = await postService.getPostByUuid({ postUuid: ctx.params.id })
-  ctx.render('post.html', {
-    post: data
+.get('/tag/:tag',async (ctx, next) => {
+  let data = await postService.getPostsByTag(ctx.params.tag)
+  let _link = await postService.getLink(ctx,'post/')
+  ctx.render('tag.html',{
+    posts: data,
+    tag: ctx.params.tag,
+    link: _link
   })
 })
 
@@ -22,7 +27,7 @@ router.get('/string', async (ctx, next) => {
 })
 
 router.get('/json', async (ctx, next) => {
-  let data = await userService.getUser(1);
+  let data = await postService.getTagsCountByName('php');
   ctx.response.type = 'application/json';
   ctx.body = data
 })

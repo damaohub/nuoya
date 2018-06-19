@@ -6,6 +6,9 @@
                 {{post.title}}
             </h1>
             <div class="meta inline-block">
+                {% for tag in tags %}
+                <a href="">{{tag.name}}</a>  
+                {% endfor %}
                 <abbr title="" class="timeago"></abbr>
             </div>
             <div class="clearfix"></div>
