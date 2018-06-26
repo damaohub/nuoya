@@ -13,6 +13,8 @@ const api = require('./routes/api')
 onerror(app)
 
 // middlewares
+
+app.use(cors());
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))

@@ -47,7 +47,7 @@ const tokenUtil = require('../../util/tokenUtil');
     }
     /**
      * 
-     * 新增tag 和post_tags
+     * 新增tag 之后增加post_tags
      */
     const _createTags = async (newPostId, addTags, allTags) => {
         postServiece.createTags(addTags).then(

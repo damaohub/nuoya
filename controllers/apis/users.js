@@ -18,8 +18,16 @@ const tokenUtil = require('../../util/tokenUtil')
         let password_hash = saltMd5.md5Salt(params.password, _uuid)//用生成的uuid 做盐
         let profile = '默认角色'
         let user = { uuid: _uuid, username: params.username, email: params.email, password_hash: password_hash, profile: profile}
-        let data = await userServiece.addUser(user)//await,于_uuid后执行,
+        let newUser = await userServiece.addUser(user)//await,于_uuid后执行,
+        let roles = await _addRoleUser(newUser.id)
         return ctx.response.body = {code: 20000, msg: '注册成功'}
+    }
+    /**
+     * 
+     * @param {*} userId 
+     */
+    const _addRoleUser = async (userId, defaultRoleId=3) => {
+        userServiece.addAdminRole(userId, defaultRoleId)
     }
 
     const login = async(ctx, next) => {
@@ -32,7 +40,6 @@ const tokenUtil = require('../../util/tokenUtil')
         }else if(!body.username) {
             return  ctx.response.body = status.paramError('username')
         }else if(!body.password){
-            
             return ctx.response.body = status.paramError('password')
         }
         let userData = await userServiece.login(body.username, body.password);

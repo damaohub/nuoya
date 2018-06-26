@@ -1,6 +1,6 @@
 const userModel = require('../models/AdminUser')
-module.exports = {
-    addUser: async (data) => {
+
+    const addUser = async (data) => {
         try {
             // var t = await sequelize.transaction()            
             var queryData = [
@@ -22,8 +22,19 @@ module.exports = {
             //  t.rollback();
             throw new Error(err);
         }
-    },
-    login: async (loginName, pw) => {   
+    }
+
+    const addAdminRole = async (userId, _roleId) => {
+        try {
+            let newDate = {adminuserId: userId, roleId: _roleId}
+            let data = await userModel.AdminRole.create(newDate)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const login = async (loginName, pw) => {   
         try {
             let queryData = [
                 { username: loginName }
@@ -33,8 +44,8 @@ module.exports = {
         } catch (err) {
             throw new Error(err);
         }
-    },
-    getUser: async (authorInfo) => {
+    }
+    const getUser = async (authorInfo) => {
         try {
             let userInfo = await userModel.User.find({  //查找单条find
                 where: {
@@ -58,8 +69,8 @@ module.exports = {
             throw(error)
         }
 
-    },
-    logout: async (token) => {
+    }
+    const logout = async (token) => {
         try {
             token = null
             return {
@@ -70,4 +81,10 @@ module.exports = {
             throw new Error(error);
         }
     }
-}
+    module.exports = {
+        addUser,
+        addAdminRole,
+        login,
+        getUser,
+        logout
+    }   
