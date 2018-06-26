@@ -7,39 +7,40 @@ module.exports = {
             ctx.body = data;
         }
     },
-    paramError: (msg, code, selfData) => {
+    resApi: (ctx, code,msg,data) => {
+        ctx.response.status= 200;
+        ctx.response.body= {
+            code: code,
+            msg: msg,
+            data: data
+         };
+    },
+
+    paramError:(paramName,_code,text,selfData) => {
+        var content = !text ? '是无效字段':text; 
         if(!selfData){
             return {
-                code: code || 40000,
-                msg: msg + '是无效字段'
+                    code: _code || 50000,
+                    msg:paramName+content
                 }
         }else {
             return {
-                code: code || 40000,
-                msg: selfData
+                    msg:selfData
                 }
         }
     },
-    resApi: (code,msg,data) => {
-            return {
-                code: code || 40000,
-                msg: msg,
-                data: data 
-            }
-    },
 
     catchError: (ctx,code,e) =>{
-        ctx.response.status= 400;
+        ctx.response.status= 200;
         ctx.response.body= {
             code: !code ? 'internal:unknown_error' : code,
-            data: e
+            msg: e
          }      
     },
     successTemp: (ctx,code,data)=>{
-        console.log(code)
         ctx.response.status= 200;
         ctx.response.body= {
-            code: !data.code ? code :data.code,
+            code: !data.code ? code : data.code,
             msg: 'sscuss',
             data: data
          };

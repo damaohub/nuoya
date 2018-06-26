@@ -26,11 +26,6 @@ app.use(template('views',{
   watch: true
 }));
 
-app.use(cors({
-  origin: function (ctx) {
-    return '*'
-  }
-}))
 
 // logger
 app.use(async (ctx, next) => {

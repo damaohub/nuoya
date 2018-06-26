@@ -3,7 +3,8 @@ const userController = require('../controllers/apis/users')
 const postController = require('../controllers/apis/posts')
 
 router.prefix('/api')
-
+/* test */ 
+router.post('/test',userController.test)
 /* users*/
 router.post('/regist', userController.addUser)
   .post('/login',userController.login)

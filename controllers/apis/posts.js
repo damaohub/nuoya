@@ -6,18 +6,18 @@ const tokenUtil = require('../../util/tokenUtil');
 
     const getPostByAuthor = async (ctx, next) => {
         let data = await tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.getPostByAuthor) 
-        ctx.body = data
+        return ctx.response.body = data
     }
 
     const getPost = async (ctx, next) => {
         let getPostPromise = tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.getPost, ctx.request.query)
         let post = await getPostPromise
-        ctx.body = post
+        return ctx.response.body = post
     }
 
     const deletePost = async (ctx, next) => {
         let dataPromise = tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.deletePost, ctx.request.body)
-        ctx.body = await dataPromise
+        return ctx.response.body = await dataPromise
     }
 
     const createPost = async (ctx, next) => {
@@ -28,7 +28,7 @@ const tokenUtil = require('../../util/tokenUtil');
             await _createTags(newPost.data.dataValues.id, postInfo.diffTags, postInfo.tags)
         }
         let post = newPost
-        ctx.bod = post
+        return ctx.response.body = post
     }
 
     const updatePost = async (ctx, next) => {
@@ -38,12 +38,12 @@ const tokenUtil = require('../../util/tokenUtil');
         let updateTagsPromise =  tokenUtil.callWithToken(token, _updateTags, postInfo)
         let post = await updatePostPromise
         let tags = await updateTagsPromise
-        ctx.body = post
+        return ctx.response.body = post
     }
 
     const updateStatus = async (ctx, next) => {
         let dataPromise  = tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.updateStatus, ctx.request.body)
-        ctx.body = await dataPromise
+        return ctx.response.body = await dataPromise
     }
     /**
      * 
@@ -89,7 +89,7 @@ const tokenUtil = require('../../util/tokenUtil');
     const getTagsBypost = async (ctx, next) => {
         let getTagsPromise = tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.getTagsBypost, ctx.request.query.postID)
         let tags = await getTagsPromise
-        ctx.body = tags
+        return ctx.response.body = tags
     }
 
     /**
@@ -99,13 +99,13 @@ const tokenUtil = require('../../util/tokenUtil');
      */
     const getTags = async (ctx, next) => {
         let getTagsPromise = tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.getTags)
-        ctx.body = await getTagsPromise
+        return ctx.response.body = await getTagsPromise
     }
 
     const getPostsCountBypost =  async (ctx, next) => {
         let postsCountPromise = tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.getPostsCountByTag, ctx.request.body.tagName)
         let postsCount = await postsCountPromise
-        ctx.body = postsCount
+        return ctx.response.body = postsCount
     }
 
     module.exports = {
