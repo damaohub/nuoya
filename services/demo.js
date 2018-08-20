@@ -1,0 +1,1 @@
+const demoModel = require('../models/demo')

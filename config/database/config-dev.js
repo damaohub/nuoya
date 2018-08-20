@@ -7,9 +7,9 @@
 */
 // const Op = require("sequelize").Op;
 const DbConfig = {
-    database: "",
-    username: "",
-    password: "",
+    database: "assist",
+    username: "root",
+    password: "0drmfslx89",
     host: "127.0.0.1",
     port: 3306,
     dialect: "mysql",

@@ -26,6 +26,13 @@ const Post = db.defineModel('post', {
     content: {
         type: db.TEXT,
         field: "content"
+    },
+    CreateTime: {
+        type: db.DATE,
+        defaultValue: db.NOW
+    },
+    UnionID: {
+        type: 
     }
 });
 
