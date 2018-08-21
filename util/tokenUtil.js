@@ -1,5 +1,5 @@
 /**
- * Created by fzy on 17/8/16.
+ * Created by mao on 17/8/16.
  */
 var jwt = require('jsonwebtoken');
 // var ObjectId = require('objectid');
@@ -18,7 +18,6 @@ JwtSession.prototype.getSession =  (users) =>{
   var expiresIn = 12 * 60 * 60;
   var payload = {};
   payload.userId = users.id
-  payload.userUuid = users.uuid;
   payload.userName = users.name;
   var options = {
     "expiresIn": expiresIn

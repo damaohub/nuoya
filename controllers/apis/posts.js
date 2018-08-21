@@ -2,7 +2,7 @@
 //const redis = require('../util/redis')
 const status = require('../../util/resTemplate')
 const postServiece = require('../../services/posts')
-const tokenUtil = require('../../util/tokenUtil');
+const tokenUtil = require('../../util/tokenUtil')
 
     const getPostByAuthor = async (ctx, next) => {
         let data = await tokenUtil.callWithToken(ctx.request.header['x-token'], postServiece.getPostByAuthor) 
