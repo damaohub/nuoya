@@ -26,18 +26,15 @@ const userModel = require('../models/user')
    
 
     const login = async (loginName, pw) => {  
-        try {
-            let queryData = [
-                { Username: loginName }
-            ];
-            let User = await userModel.User.find({ where: { $or: queryData } })
-            return User;
-        } catch (err) {
-            throw new Error(err);
-        }
+        let queryData = [
+            { Username: loginName }
+        ];
+        let User = await userModel.User.find({ where: { $or: queryData } })
+        return User;
     }
+
     const getUser = async (authorInfo) => {
-        try {
+       
             let userInfo = await userModel.User.find({  //查找单条find
                 where: {
                     uuid: authorInfo.userUuid
@@ -55,23 +52,17 @@ const userModel = require('../models/user')
                 _roles[i] = roleUser[i].name
             }
             let info = Object.assign(userInfo.dataValues, { roles: _roles })//sequelize的对象经过封装，不能直接合并，dataValues才是数据
-            return info
-        } catch (error) {
-            throw(error)
-        }
+            return info  
+    }
 
-    }
     const logout = async (token) => {
-        try {
-            token = null
-            return {
-                code: 20000,
-                msg: '退出成功'
-            }
-        } catch (error) {
-            throw new Error(error);
+        token = null
+        return {
+            code: 20000,
+            msg: '退出成功'
         }
     }
+
     module.exports = {
         addUser,
         login,
