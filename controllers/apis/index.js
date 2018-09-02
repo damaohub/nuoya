@@ -4,7 +4,7 @@ const tokenUtil = require('../../util/tokenUtil')
 
 const getOrders = async (ctx, next) => {
     let token = ctx.request.header['x-token']
-    let order = await tokenUtil.callWithToken(token, indexServiece.getOrders)
+    let order = await tokenUtil.callWithToken(token, indexServiece.getOrders(status))
     return ctx.response.body = order
 }
 
