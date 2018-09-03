@@ -3,8 +3,9 @@ const userController = require('../controllers/apis/users')
 const indexController = require('../controllers/apis/index') 
 router.prefix('/api')
 
-router.post('/pending-orders',indexController.getOrders)
-
+router.post('/orders',indexController.getOrders)
+      .post('/history-orders',indexController.historyOrders)
+      .post('/complain',indexController.complainList)
 /* users*/
 router.post('/regist', userController.addUser)
   .post('/login',userController.login)

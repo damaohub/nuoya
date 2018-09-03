@@ -20,15 +20,16 @@ const Order = db.defineModel('order_info', {
         type: db.STRING
     },
     CreateTime: {
-        type: db.STRING,
-       
+        type: db.DATE,
+        defaultValue: db.NOW
     },
     ExpireTime: {
-        type: db.STRING,   
+        type: db.DATE,
+      
     },
     LastGetTime: {
         type: db.DATE,
-        defaultValue: db.NOW
+       
     },
     GetNum: {
         type: db.INTEGER
@@ -51,4 +52,26 @@ const Order = db.defineModel('order_info', {
 })
 
 
-module.exports = { Order }
+const Complain = db.defineModel('complain_info', {
+    PID: {
+        type: db.INTEGER
+    },
+    OID: {
+        type: db.INTEGER
+    },
+    Content: {
+        type: db.TEXT
+    },
+    Status: {
+        type: db.INTEGER
+    },
+    CreateTime: {
+        type: db.DATE,
+        defaultValue: db.NOW
+    },
+})
+
+module.exports = {
+    Order,
+    Complain
+}
