@@ -71,7 +71,35 @@ const Complain = db.defineModel('complain_info', {
     },
 })
 
+
+
+const Money = db.defineModel('money_info', {
+    UID: {
+        type: db.INTEGER
+    },
+    UType: {
+        type: db.INTEGER
+    },
+    OID: {
+        type: db.INTEGER
+    },
+    Type: {
+        type: db.INTEGER
+    },
+    Amount: {
+        type: db.STRING(30)
+    },
+    RemainAmount: {
+        type: db.STRING(30)
+    },
+    CreateTime: {
+        type: db.DATE,
+        defaultValue: db.NOW
+    }
+})
+
 module.exports = {
     Order,
-    Complain
+    Complain,
+    Money
 }
