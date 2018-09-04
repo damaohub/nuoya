@@ -9,7 +9,7 @@ router.post('/orders',indexController.getOrders)
 /* users*/
 router.post('/regist', userController.addUser)
   .post('/login',userController.login)
-  .get('/info', userController.getUserInfo)
+  .post('/info', userController.getUser)
   .post('/logout',userController.logout)
 
 

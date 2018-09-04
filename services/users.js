@@ -33,27 +33,26 @@ const userModel = require('../models/user')
         return User;
     }
 
-    const getUser = async (authorInfo) => {
-       
-            let userInfo = await userModel.User.find({  //查找单条find
+    const getUser = async (userId) => {
+            let user = await userModel.User.find({  //查找单条find
                 where: {
-                    uuid: authorInfo.userUuid
+                    ID: userId
                 },
-                attributes: ['email','username']
+                attributes: { exclude: ['Password'] }
             })
-            let roleUser = await userModel.Role.findAll({
-                include: [{
-                    model: userModel.User,
-                    where: { id: authorInfo.userId}
-                }]   
-            })
-            var _roles = []
-            for (let i=0; i<roleUser.length; i++){
-                _roles[i] = roleUser[i].name
-            }
-            let info = Object.assign(userInfo.dataValues, { roles: _roles })//sequelize的对象经过封装，不能直接合并，dataValues才是数据
-            return info  
+            return user  
     }
+
+
+    const getLowerCount = async (userId) => {
+        let lowerCount = await userModel.User.count({
+            where: {
+                PID: userId
+            }
+        })
+        return lowerCount 
+    } 
+
 
     const logout = async (token) => {
         token = null
@@ -67,5 +66,6 @@ const userModel = require('../models/user')
         addUser,
         login,
         getUser,
+        getLowerCount,
         logout
     }   

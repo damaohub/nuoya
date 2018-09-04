@@ -4,8 +4,6 @@ const userServiece = require('../../services/users')
 const saltMd5 = require('../../util/saltMD5')
 const tokenUtil = require('../../util/tokenUtil')
 
-    const test = async (ctx, next) => { return ctx.body = 'test'}
-
     const addUser = async (ctx,next) => {
         var params = ctx.request.body;
         if(!params.username){
@@ -39,14 +37,19 @@ const tokenUtil = require('../../util/tokenUtil')
             return status.resApi(ctx,'50000', '密码不正确')
         }
         let session = await tokenUtil.getSession(userData);
-        return status.resApi(ctx, 20000, 'ok', { token: session.token })             
+        return status.resApi(ctx, 20000, 'ok', { token: session.token})             
     }
 
-    const getUserInfo = async(ctx,next) => {
-        let token = ctx.request.query.token
-        let userInfo = await tokenUtil.callWithToken(token,userServiece.getUser)
+    const getUser = async(ctx,next) => {
+        let token = ctx.request.header['x-token']
+        let _userId = await tokenUtil.prverifySession(token)
+        let userInfo = await tokenUtil.callWithToken(token,userServiece.getUser,_userId.userId)
+        let _count = await userServiece.getLowerCount(_userId.userId)
+        Object.assign(userInfo.data.dataValues,{lowerCount: _count})
         return ctx.response.body = userInfo
     }
+
+   
 
     const logout = async (ctx,next) => {
         let token = ctx.request.query.token
@@ -55,9 +58,8 @@ const tokenUtil = require('../../util/tokenUtil')
     }
 
     module.exports = {
-        test,
         addUser,
         login,
-        getUserInfo,
+        getUser,
         logout
     }
