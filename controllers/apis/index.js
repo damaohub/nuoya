@@ -23,8 +23,15 @@ const complainList = async (ctx, next) => {
 }
 
 
+const billList = async (ctx,next) => {
+    let token = ctx.request.header['x-token']
+    let list = await tokenUtil.callWithToken(token, indexServiece.moneyInfo,(ctx.userId, ctx.page, ctx.pageSize))
+    return ctx.response.body = list
+}
+
 module.exports = {
     getOrders,
     historyOrders,
-    complainList
+    complainList,
+    billList
 }

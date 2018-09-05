@@ -41,8 +41,25 @@ const complainList = async () => {
 }
 
 
+/**
+ * 账单明细（分页）
+ */
+
+ const moneyInfo = async (uid, page, pageSize) => {
+     let money = await indexModel.Money.findAll({
+         where: { UID: uid},
+         offset: (page-1) * pageSize,
+         limit: pageSize
+     })
+
+     return money
+ }
+
+
+
 module.exports = {
    getOrders,
    historyOrders,
-   complainList
+   complainList,
+   moneyInfo
 }
