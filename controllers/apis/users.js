@@ -42,9 +42,9 @@ const tokenUtil = require('../../util/tokenUtil')
 
     const getUser = async(ctx,next) => {
         let token = ctx.request.header['x-token']
-        let _userId = await tokenUtil.prverifySession(token)
-        let userInfo = await tokenUtil.callWithToken(token,userServiece.getUser,_userId.userId)
-        let _count = await userServiece.getLowerCount(_userId.userId)
+        let _userInfo = await tokenUtil.prverifySession(token)
+        let userInfo = await tokenUtil.callWithToken(token,userServiece.getUser,_userInfo.userId)
+        let _count = await userServiece.getLowerCount(_userInfo.userId)
         Object.assign(userInfo.data.dataValues,{lowerCount: _count})
         return ctx.response.body = userInfo
     }

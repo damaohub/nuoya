@@ -45,11 +45,13 @@ const complainList = async () => {
  * 账单明细（分页）
  */
 
- const moneyInfo = async (uid, page, pageSize) => {
+ const moneyInfo = async (bill) => {
      let money = await indexModel.Money.findAll({
-         where: { UID: uid},
-         offset: (page-1) * pageSize,
-         limit: pageSize
+         where: {
+              UID: bill.uid
+            },
+         offset: (bill.page-1) * bill.pageSize,
+         limit: bill.pageSize
      })
 
      return money

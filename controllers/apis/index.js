@@ -25,7 +25,13 @@ const complainList = async (ctx, next) => {
 
 const billList = async (ctx,next) => {
     let token = ctx.request.header['x-token']
-    let list = await tokenUtil.callWithToken(token, indexServiece.moneyInfo,(ctx.userId, ctx.page, ctx.pageSize))
+    let _page = ctx.request.body.page
+    let _pageSize = ctx.request.body.pageSize
+    let  _userInfo = await tokenUtil.prverifySession(token)
+    _uId = _userInfo.userId.toString()
+    let billInfo ={uid: _uId, page: _page, pageSize: _pageSize}
+    
+    let list = await tokenUtil.callWithToken(token, indexServiece.moneyInfo,billInfo)
     return ctx.response.body = list
 }
 
