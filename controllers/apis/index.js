@@ -40,12 +40,28 @@ const withDraw = async (ctx, next) => {
     let body = ctx.request.body
     let  _userInfo = await tokenUtil.prverifySession(token)
     _uId = _userInfo.userId.toString()
-    
+    let _userInfo =  await userServiece.getUser(_uId)
+    let _remainAmount = _userInfo.Balance - body.amount
 
-
-
-    let PurseParm = {UID: _uId,Type: 1,Amount:body.amount }
-    let [addToPurse, addToMoney, updateUesrBalance] = await Promise.all([userServiece.updateUesrBalance(), indexServiece.addToPurse(),indexServiece.addToMoney()]);
+    let purseParm = {
+        UID: _uId,
+        Type: 1,
+        Amount: body.amount, 
+        RemainAmount: _remainAmount, 
+        Status: 1,
+        RealName: _userInfo.RealName,
+        Alipay: _userInfo.Alipay
+    }
+    // let moneyParm = {
+    //     UID: _uId,
+    //     UType: 1,
+    //     OID: 
+    //     Type: 6,
+    //     Amount: 
+    //     RemainAmount: 
+    //     CreateTime: 
+    // }
+    let [addToPurse, addToMoney, updateUesrBalance] = await Promise.all([userServiece.updateUesrBalance(), indexServiece.addToPurse(purseParm),indexServiece.addToMoney()]);
     return ctx.response.body = {
         code: 20000,
         data: [addToPurse, addToMoney, updateUesrBalance],
