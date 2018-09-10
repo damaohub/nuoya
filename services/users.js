@@ -53,6 +53,21 @@ const userModel = require('../models/user')
         return lowerCount 
     } 
 
+/**
+ * 更新余额(提现)
+ */
+const updateUesrBalance = async (balance) => {
+    let newData =  await userModel.User.update({
+        Balance：balance
+    },{
+        where: {
+            ID: userId
+        }
+    }
+)
+    return newData
+}
+
 
     const logout = async (token) => {
         token = null
@@ -67,5 +82,6 @@ const userModel = require('../models/user')
         login,
         getUser,
         getLowerCount,
+        updateUesrBalance,
         logout
     }   

@@ -57,11 +57,28 @@ const complainList = async () => {
      return money
  }
 
+/**
+ * 计入账单（提现）
+ */
+ const addToMoney = async (data) => {
+    let newData = await indexModel.Money.create(data)
+    return newData
+}
+
+/**
+ * 计入钱包(提现)
+ */
+const addToPurse = async (data) => {
+    let newData =  await indexModel.Purse.create(data)
+    return newData
+}
 
 
 module.exports = {
    getOrders,
    historyOrders,
    complainList,
-   moneyInfo
+   moneyInfo,
+   addToMoney,
+   addToPurse
 }

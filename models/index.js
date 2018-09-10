@@ -98,8 +98,39 @@ const Money = db.defineModel('money_info', {
     }
 })
 
+const Purse = db.defineModel('purse_info', {
+    UID: {
+        type: db.INTEGER
+    },
+    Type: {
+        type: db.INTEGER
+    },
+    Amount: {
+        type: db.STRING(30)
+    },
+    RemainAmount: {
+        type: db.STRING(30)
+    },
+    Status: {
+        type: db.INTEGER
+    },
+    RealName: {
+        type: db.STRING(20)
+    },
+    Alipay: {
+        type: db.STRING(30)
+    },
+    PurseTime: {
+        type: db.DATE,
+        defaultValue: db.NOW
+    }
+})
+
+
+
 module.exports = {
     Order,
     Complain,
-    Money
+    Money,
+    Purse
 }

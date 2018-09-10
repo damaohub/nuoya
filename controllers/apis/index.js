@@ -1,6 +1,6 @@
 const indexServiece = require('../../services/index')
 const tokenUtil = require('../../util/tokenUtil')
-
+const userServiece = require('../../services/users')
 
 const getOrders = async (ctx, next) => {
     let token = ctx.request.header['x-token']
@@ -35,9 +35,30 @@ const billList = async (ctx,next) => {
     return ctx.response.body = list
 }
 
+const withDraw = async (ctx, next) => {
+    let token = ctx.request.header['x-token']
+    let body = ctx.request.body
+    let  _userInfo = await tokenUtil.prverifySession(token)
+    _uId = _userInfo.userId.toString()
+    
+
+
+
+    let PurseParm = {UID: _uId,Type: 1,Amount:body.amount }
+    let [addToPurse, addToMoney, updateUesrBalance] = await Promise.all([userServiece.updateUesrBalance(), indexServiece.addToPurse(),indexServiece.addToMoney()]);
+    return ctx.response.body = {
+        code: 20000,
+        data: [addToPurse, addToMoney, updateUesrBalance],
+        msg: 'ok'
+    }
+}
+
+
+
 module.exports = {
     getOrders,
     historyOrders,
     complainList,
-    billList
+    billList,
+    withDraw
 }
