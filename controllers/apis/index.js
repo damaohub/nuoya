@@ -27,8 +27,8 @@ const billList = async (ctx,next) => {
     let token = ctx.request.header['x-token']
     let _page = ctx.request.body.page
     let _pageSize = ctx.request.body.pageSize
-    let  _userInfo = await tokenUtil.prverifySession(token)
-    _uId = _userInfo.userId.toString()
+    let  _Info = await tokenUtil.prverifySession(token)
+    _uId = _Info.userId.toString()
     let billInfo ={uid: _uId, page: _page, pageSize: _pageSize}
     
     let list = await tokenUtil.callWithToken(token, indexServiece.moneyInfo,billInfo)
@@ -38,8 +38,8 @@ const billList = async (ctx,next) => {
 const withDraw = async (ctx, next) => {
     let token = ctx.request.header['x-token']
     let body = ctx.request.body
-    let  _userInfo = await tokenUtil.prverifySession(token)
-    _uId = _userInfo.userId.toString()
+    let  _Info = await tokenUtil.prverifySession(token)
+    _uId = _Info.userId.toString()
     let _userInfo =  await userServiece.getUser(_uId)
     let _remainAmount = _userInfo.Balance - body.amount
 
@@ -52,6 +52,9 @@ const withDraw = async (ctx, next) => {
         RealName: _userInfo.RealName,
         Alipay: _userInfo.Alipay
     }
+
+   let newPurse = indexServiece.addToPurse(purseParm)
+   console.log(newPurse)
     // let moneyParm = {
     //     UID: _uId,
     //     UType: 1,
@@ -61,10 +64,10 @@ const withDraw = async (ctx, next) => {
     //     RemainAmount: 
     //     CreateTime: 
     // }
-    let [addToPurse, addToMoney, updateUesrBalance] = await Promise.all([userServiece.updateUesrBalance(), indexServiece.addToPurse(purseParm),indexServiece.addToMoney()]);
+    //let [addToPurse, addToMoney, updateUesrBalance] = await Promise.all([userServiece.updateUesrBalance(),indexServiece.addToMoney()]);
     return ctx.response.body = {
         code: 20000,
-        data: [addToPurse, addToMoney, updateUesrBalance],
+        data: newPurse,
         msg: 'ok'
     }
 }

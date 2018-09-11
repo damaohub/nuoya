@@ -61,7 +61,7 @@ const userModel = require('../models/user')
  */
 const updateUesrBalance = async (balance) => {
     let newData =  await userModel.User.update({
-        Balance：balance
+        Balance: balance
     },{
         where: {
             ID: userId
@@ -89,7 +89,6 @@ const updateUesrBalance = async (balance) => {
         login,
         getUser,
         getLowerCount,
-        getBalance,
         updateUesrBalance,
         logout
     }   

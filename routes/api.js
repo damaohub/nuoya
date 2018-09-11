@@ -7,7 +7,7 @@ router.post('/orders',indexController.getOrders)
       .post('/history-orders',indexController.historyOrders)
       .post('/complain',indexController.complainList)
       .post('/bill',indexController.billList)
-
+      .post('/withDraw', indexController.withDraw)
 
 
 /* users*/
