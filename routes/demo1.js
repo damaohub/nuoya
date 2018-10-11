@@ -1,13 +1,13 @@
 const router = require('koa-router')()
 const userController = require('../controllers/apis/users')
-const indexController = require('../controllers/apis/index') 
+const demo1Controller = require('../controllers/apis/demo1') 
 router.prefix('/api')
 
-router.post('/orders',indexController.getOrders)
-      .post('/history-orders',indexController.historyOrders)
-      .post('/complain',indexController.complainList)
-      .post('/bill',indexController.billList)
-      .post('/withDraw', indexController.withDraw)
+router.post('/orders',demo1Controller.getOrders)
+      .post('/history-orders',demo1Controller.historyOrders)
+      .post('/complain',demo1Controller.complainList)
+      .post('/bill',demo1Controller.billList)
+      .post('/withDraw', demo1Controller.withDraw)
 
 
 /* users*/

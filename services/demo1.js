@@ -1,5 +1,5 @@
-const indexModel = require('../models/index')
-const db = require("../lib/db");
+const indexModel = require('../models/demo1')
+const db = require("../lib/demo1-db");
 /**
  * 按状态查询订单
  */

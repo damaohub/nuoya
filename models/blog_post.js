@@ -1,11 +1,11 @@
-const db = require("../lib/db");
+const db = require("../lib/blog-db");
 const uuid = require('node-uuid');
 
 function generateId() {
     return uuid.v4();
 }
 
-const Post = db.defineModel('post', {
+const Post = db.defineModel('blog_posts', {
     uuid: {
         type: db.UUID,
         defaultValue: function () {
@@ -29,20 +29,23 @@ const Post = db.defineModel('post', {
     }
 });
 
-const Tag = db.defineModel('tag', {
+const Tag = db.defineModel('blog_tag', {
     name: {
         type: db.STRING(128)
+    },
+    frequency: {
+        type: db.INTEGER(11)
     }
 })
 
-const PostTag = db.defineModel('post_tag', {
+const PostTag = db.defineModel('blog_post_tag', {
     id: {
         type: db.INTEGER,
         primaryKey: true,
         autoIncrement: true
       }
 })
-Tag.belongsToMany(Post, { through: 'post_tag'})
-Post.belongsToMany(Tag, { through: 'post_tag' })
+Tag.belongsToMany(Post, { through: 'blog_post_tag', foreignKey: 'tagId'})
+Post.belongsToMany(Tag, { through: 'blog_post_tag', foreignKey: 'postId' })
 
 module.exports = {Post, Tag, PostTag}

@@ -4,12 +4,11 @@
     </div>
     <div class="panel-body">
         <div class="users-label">
-
-            <a class="users-label-item" href="" title="Ken - 努力努力再努力">
-                 Ken
+            {% for tag in tags %}
+            <a class="label-item" href="{{tag.link + tag.name}}" data-toggle="tooltip" data-placement="top" title="{{tag.name}}">
+                <span class="label label-info">{{tag.name}}</span>
             </a>
-            
-            
+            {% endfor %}
 
         </div>
 

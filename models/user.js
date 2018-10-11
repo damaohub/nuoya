@@ -1,5 +1,5 @@
 
-const db = require("../lib/db");
+const db = require("../lib/demo1-db");
 
 const User = db.defineModel('user_info',{
     Username: {

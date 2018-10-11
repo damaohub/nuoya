@@ -1,5 +1,4 @@
-const db = require("../lib/db");
-
+const db = require("../lib/demo1-db");
 const Order = db.defineModel('order_info', {
     UID: {
         type: db.INTEGER

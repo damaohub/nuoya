@@ -13,3 +13,5 @@ db.sql
 *.ntvs*
 *.njsproj
 *.sln
+
+*.sql

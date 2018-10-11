@@ -1,6 +1,6 @@
-const postModel = require('../models/post')
+const postModel = require('../models/blog_post')
 const uuid = require('../util/UuidUtil')
-const url = require('url')
+const Sequelize = require('sequelize');
 
     const getPosts = async () => {
         try {
@@ -75,7 +75,6 @@ const url = require('url')
     }
 
     const deletePost = async (articleInfo) => {
-        console.log(articleInfo)
         let _postID = articleInfo.postID
         let article = await postModel.Post.destroy({
             where: {
@@ -100,10 +99,7 @@ const url = require('url')
      * 查询tag表获取所有标签
      */
     const getTags = async () => { 
-        let tags = await postModel.Tag.findAll({
-            attributes: ['id', 'name']
-        })
-        
+        let tags = await postModel.Tag.findAll()
         return tags;
 
     }
@@ -144,7 +140,7 @@ const url = require('url')
             include: [{
                 model: postModel.Tag,
                 where : { name: tagName }
-            }]
+            }],
         })
 
         return posts
@@ -154,13 +150,17 @@ const url = require('url')
      * tag表新增数据getTagsHander
      * @tags: 新增标签 Array
      * @ 返回所有tag
+     * 先查询再更新，需要启动一个事务
      */
     const createTags = async (tags) => {
         try {
+            return Sequelize.transaction(function(t) {
+                return postModel.Tag.findAll()
+            })
             let newDate =[]
             for(let i=0; i<tags.length; i++){
                 newDate.push({
-                    name: tags[i],
+                    namee: tags[i],
                     createdAt: Date.now(),
                     updatedAt: Date.now()
                 })  
@@ -207,7 +207,33 @@ const url = require('url')
             console.log(error)
         }
     }
-
+/**
+ * 更新tag的frequency
+ * 记录标签对应的文章个数
+ */
+    const updateTagFrequency = async (frequencys) => {
+        try {
+            await postModel.Tag.update({
+                frequency: frequencys.count + 1
+            },{
+                where: {id: frequencys.tagId }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const deleteTag = async (tagId) => {
+        try {
+            let tag = await postModel.Tag.destroy({
+                where: {
+                    id: tagId
+                }
+            });
+            return tag
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const getLink = async (ctx,path='') => {
         return ctx.request.href+path
     }
@@ -227,5 +253,7 @@ const url = require('url')
         createTags,
         createPostTagBypost,
         deletePostTagsByPost,
+        updateTagFrequency,
+        deleteTag,
         getLink
     }

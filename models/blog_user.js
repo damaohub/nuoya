@@ -5,13 +5,13 @@
  * @Last Modified by:    
  * @Last Modified time: 
 */
-const db = require("../lib/db");
+const db = require("../lib/blog-db");
 const uuid = require('node-uuid');
 
 function generateId() {
     return uuid.v4();
 }
-const User = db.defineModel('adminuser',{
+const BlogUser = db.defineModel('blog_admin',{
     uuid: {
         type: db.UUID,
         defaultValue: function () {
@@ -33,7 +33,7 @@ const User = db.defineModel('adminuser',{
     }
 })
 
-const Role = db.defineModel('role', {
+const BlogRole = db.defineModel('blog_role', {
     name: {
         type: db.STRING(128)
     },
@@ -49,7 +49,7 @@ const AdminRole = db.defineModel('admin_role', {
         autoIncrement: true
       }
 })
-Role.belongsToMany(User, { through: 'admin_role'})
-User.belongsToMany(Role, { through: 'admin_role' })
+BlogRole.belongsToMany(BlogUser, { through: 'blog_admin_role',foreignKey: 'roleId' })
+BlogUser.belongsToMany(BlogRole, { through: 'blog_admin_role', foreignKey: 'adminuserId' })
 
-module.exports = { User, Role, AdminRole }
+module.exports = { BlogUser, BlogRole, AdminRole }
