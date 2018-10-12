@@ -6,9 +6,8 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-const blog = require('./controllers/blog')
-const blogApi = require('./routes/blog')
-const demoApi = require('./routes/demo1')
+const index = require('./controllers/index')
+const adminApi = require('./routes/admin')
 // error handler
 onerror(app)
 
@@ -37,10 +36,8 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(blog.routes(), blog.allowedMethods())
-app.use(demoApi.routes(), demoApi.allowedMethods())
-app.use(blogApi.routes(), blogApi.allowedMethods())
-
+app.use(index.routes(), index.allowedMethods())
+app.use(adminApi.routes(), adminApi.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

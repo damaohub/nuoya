@@ -5,7 +5,7 @@
  * @Last Modified by:    
  * @Last Modified time: 
 */
-const db = require("../lib/blog-db");
+const db = require("../lib/db");
 const uuid = require('node-uuid');
 
 function generateId() {

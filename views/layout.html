@@ -6,29 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{title}}</title>
     <link rel='stylesheet' href='http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/assets/site.css' />
 </head>
 <body>
     <div id="wrap">
     {% include "partion/nav.html" %}
 <div class="container main-container ">
-
-
-    <div class="col-md-9 topics-index main-col">
-
-
-        {% block content %}{% endblock %}
- 
     
-    </div>
-
-    <div class="col-md-3 side-bar">
-        {% include "partion/side.html" %}
-        
-    </div>
-    <div class="clearfix"></div>
-
-
-
+        {% block content %}{% endblock %}
 
 </div>
     </div>

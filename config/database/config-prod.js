@@ -7,10 +7,10 @@
 */
 
 const DbConfig = {
-    database: "",
-    username: "",
-    password: "",
-    host: "",
+    database: "nuoya",
+    username: "root",
+    password: "qaz123QAZ*",
+    host: "127.0.0.1",
     port: 3306,
     dialect: "mysql",
     //连接池的配置

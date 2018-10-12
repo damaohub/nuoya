@@ -1,50 +1,98 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-        
-            <ul class="list-inline topic-filter">
-        
-                <li class="popover-with-html" data-content="发布时间排序" data-original-title="" title="">
-                    <a href="" class="active">最近</a>
-                </li>
-            </ul>
-        
-            <div class="clearfix"></div>
-        </div>
-
-        <div class="jscroll">
-            <div class="jscroll-inner">
-                <div class="panel-body remove-padding-horizontal">
-                    <ul class="list-group row topic-list">
-                        {% for post in posts %}
-                        <li class="list-group-item " style="border:none;">
-                            <span class="reply_count_area hidden-xs pull-right" href="">
-                                <div class="count_set">
-                                    <abbr title="{{post.updatedAt|date}}" class="timeago">{{post.updatedAt|date('{y}-{m}-{d}')}}</abbr>
-                                </div>
-                            </span>
-                            <div class="infos">
-        
-                                <div class="media-heading">
-        
-                                    <!-- <span class="hidden-xs label label-warning">置顶</span> -->
-        
-                                    <a href="{{post.link+post.id}}"
-                                        title="{{post.title}}">
-                                        {{post.title}}   
-                                    </a>
-        
-        
-                                </div>
-        
-                            </div>
-        
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+<div class="banner">
+    <img src="{{user.banner}}" width="1000" height="270" alt="">
+</div>
+<div class="flex">
+    {% for top in tops %}
+    <a href="{{top.top_link}}">
+        <div class="col">
+        <div class="thumbnail thumbnail-1" 
+        onmouseover="this.className='thumbnail thumbnail_hover thumbnail-1'" 
+        onmouseout="this.className='thumbnail thumbnail-1'">
+            <div class="caption">
+            <h3>{{top.top_title}}</h3>
+            <p>{{top.top_content}}</p>
             </div>
         </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="flex">
+    <div class="col news1">
+        <div class="title">
+            <div style="display: inline;font-size: 20px;">最新<span style="color: red;">资讯</span></div><span style="color: #999;">The latest information</span>
+        </div>
+        <ul>
+                {% for item in news1 %}
+            <li>
+                <div class="pr">
+                    <div class="prt"><span>{{item.updatedAt | date('{m}-{d}')}}</span><a href="{{item.link}}" title="福建隆教乡：成长惠民才是“真继续”">{{item.title}}</a></div>
+                    <div class="prc">{{item.content}}</div>
+                  </div>
+            </li>
+                {% endfor %}
+          
+        </ul>
     </div>
+    <div class="col news1 news2">
+        <div class="title">
+            <div style="display: inline;font-size: 20px;">最新<span style="color: red;">资讯</span></div><span style="color: #999;">The latest information</span>
+        </div>
+        <ul>
+            {% for item in news2 %}
+            <li>
+                <div class="pr">
+                    <div class="prt"><span>{{item.updatedAt | date('{m}-{d}')}}</span><a href="{{item.link}}" title="福建隆教乡：成长惠民才是“真继续”">{{item.title}}</a></div>
+                    <div class="prc">{{item.content}}</div>
+                  </div>
+            </li>
+                {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="footc">
+    <div class="cp1">
+   友情链接：|  
+   {% for item in links %}
+    <a href="{{item.link}}" target="_blank">{{item.name}}</a>  | 
+    {% endfor %} 
+    </div>
+</div>
+<div class="bot">
+    <div class="botc">
+      <div class="about">
+        <div class="cp">诺亚平台是国内一家大型的综合游戏平台。以良好的信誉、稳定快捷的服务，给网游朋友们留下很好的印象。另外诺亚娱乐平台客户端下载等等功能齐全,口碑得到了众多用户的追捧实力证明了他的强大，奖金高玩法多样化得到了玩家的喜爱，娱乐一体打造世界最好玩的娱乐游戏。
+   | 
+   
+  
+      
+   | <a href="https://www.nuoya115.com/sitemap.xml">网站地图</a> |<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?d4d01d032c119b50d9c52f8156d04c51";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  </div>
+   
+          <div class="cp1"><a href="http://www.nuoya115.com/nuoyajianjie/">点击查看</a></div>
+  
+        <div class="conc">
+          <div class="cp"></div>
+        </div>
+      </div>
+      <div class="message">
+     
+  
+  </div>
+  
+  </div>
+       
+</div>
 {% endblock %}
